@@ -8,6 +8,8 @@ export class User {
   password: string;
   @Prop()
   username: string;
+  @Prop()
+  roles: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
