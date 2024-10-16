@@ -24,7 +24,7 @@ export class CreateUserUseCase {
 
     const userCreated = new this.userModel({ ...userDTO, password });
     const user = await userCreated.save();
-    console.log(user);
+
     return user;
   }
 }

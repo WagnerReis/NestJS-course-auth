@@ -6,6 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ProductModule } from './modules/product/product.module';
+import { RolesGuard } from './infra/providers/roles-guard.provider';
 
 @Module({
   imports: [
@@ -16,6 +17,12 @@ import { ProductModule } from './modules/product/product.module';
     ProductModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: 'APP_GUARD',
+      useClass: RolesGuard,
+    },
+    AppService,
+  ],
 })
 export class AppModule {}
