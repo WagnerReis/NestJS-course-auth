@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateProductUseCase } from './use-cases/create-product.usecase';
 import { CreateProductDTO } from './product.dto';
-import { Role, Roles } from 'src/decorators/roles.decorator';
 import { ListProductsUseCase } from './use-cases/list-product.usecase';
+import { Auth, Role } from 'src/decorators/auth.decorator';
 
 @Controller('products')
 export class ProductController {
@@ -11,13 +11,13 @@ export class ProductController {
     private readonly listProductsUseCase: ListProductsUseCase,
   ) {}
 
-  @Roles(Role.ADMIN)
+  @Auth(Role.ADMIN)
   @Post('')
   async create(@Body() data: CreateProductDTO) {
     return await this.createProductUseCase.execute(data);
   }
 
-  @Roles(Role.ADMIN, Role.USER)
+  @Auth(Role.ADMIN, Role.USER)
   @Get('')
   async list() {
     return await this.listProductsUseCase.execute();
